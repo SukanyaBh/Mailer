@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Mailer.Contracts.Models
 {
-    public class EmailRequest : NotificationRequest
+    public class EmailRequest : NotificationRequest,IEmailRequest
     {
-        public EmailRequest(string subject,DateTime sendTime)
+        public EmailRequest(string subject, string content)
         {
             this.Subject = subject;
-            this.SendTime = sendTime;
+            this.Content = content;
         }
+
         public string Content { get; set; }
         public string FromEmail { get; set; }
         public List<string> To { get; set; }
@@ -20,10 +21,4 @@ namespace Mailer.Contracts.Models
         public List<string> BCC { get; set; }
         public List<EmailAttachment> Attachments { get; set; }
     }
-
-    public class EmailAttachment {
-        public string Name { get; set; }
-        public byte[] Content { get; set; }
-    }
 }
-

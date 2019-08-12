@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="IEmailRequest.cs" />
+    <Compile Include="IEmailResponse.cs" />
     <Compile Include="INotificationRequest.cs" />
     <Compile Include="INotificationResponse.cs" />
     <Compile Include="INotificationService.cs" />
+    <Compile Include="Models\EmailAttachment.cs" />
     <Compile Include="Models\EmailRequest.cs" />
     <Compile Include="Models\EmailResponse.cs" />
     <Compile Include="Models\NotificationRequest.cs" />
