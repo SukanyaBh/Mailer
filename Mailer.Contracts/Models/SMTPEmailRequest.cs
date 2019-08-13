@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Mailer.Contracts.Models
 {
-    public class SMTPEmailRequest : EmailRequest, IEmailRequest
+    /// <summary>
+    /// Concrete class for SMTP specific emails request
+    /// </summary>
+    public class SMTPEmailRequest : EmailRequest
     {
-        public SMTPEmailRequest(string subject, string content) : base(subject,content)
+        public SMTPEmailRequest(string subject, DateTime sendTime) : base(subject, sendTime)
         {
         }
     }

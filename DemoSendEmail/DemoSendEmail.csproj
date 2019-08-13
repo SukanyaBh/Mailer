@@ -50,6 +50,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mailer.Contracts\Mailer.Contracts.csproj">
+      <Project>{c2aa3a20-837f-4063-a035-87a3a19d4ea0}</Project>
+      <Name>Mailer.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mailer.Core\Mailer.Core.csproj">
+      <Project>{90604f46-8947-461e-b11d-33271c8e05c8}</Project>
+      <Name>Mailer.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mailer\Mailer.csproj">
       <Project>{0916379c-6618-4bc6-aa31-f5a754e5ea1e}</Project>
       <Name>Mailer</Name>

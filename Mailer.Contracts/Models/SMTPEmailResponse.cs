@@ -7,7 +7,10 @@ using static Mailer.Contracts.Enums;
 
 namespace Mailer.Contracts.Models
 {
-    public class SMTPEmailResponse : EmailResponse,IEmailResponse
+    /// <summary>
+    /// Concrete class for SMTP specific email response
+    /// </summary>
+    public class SMTPEmailResponse : EmailResponse
     {
         public SMTPEmailResponse(NotificationStatus status)
         {

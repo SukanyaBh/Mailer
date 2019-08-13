@@ -51,7 +51,7 @@ namespace Mailer.Core.Services
         {
             SmtpClient client = new SmtpClient(config.Host, config.Port);
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(config.UserName, config.Password);
+            client.Credentials = new NetworkCredential(config.Username, config.Password);
             return client;
         }
     }

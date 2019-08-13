@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.Exchange.WebServices" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mailer.Core\Mailer.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mailer.Contracts.Models
 {
+    /// <summary>
+    /// Base class for Email notifications response
+    /// </summary>
     public class EmailResponse:NotificationResponse, IEmailResponse
     {
     }

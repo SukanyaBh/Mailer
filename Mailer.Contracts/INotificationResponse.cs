@@ -7,6 +7,9 @@ using static Mailer.Contracts.Enums;
 
 namespace Mailer.Contracts
 {
+    /// <summary>
+    /// Base response interface for all types of notifications
+    /// </summary>
     public interface INotificationResponse
     {
         NotificationStatus Status { get; set; }
