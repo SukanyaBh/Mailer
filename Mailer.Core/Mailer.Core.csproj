@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\SMTPConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SMTPService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mailer.Contracts\Mailer.Contracts.csproj">
@@ -50,5 +51,6 @@
       <Name>Mailer.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

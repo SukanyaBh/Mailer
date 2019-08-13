@@ -44,6 +44,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="IEmailRequest.cs" />
     <Compile Include="IEmailResponse.cs" />
+    <Compile Include="IEmailService.cs" />
     <Compile Include="INotificationRequest.cs" />
     <Compile Include="INotificationResponse.cs" />
     <Compile Include="INotificationService.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="Models\EmailResponse.cs" />
     <Compile Include="Models\NotificationRequest.cs" />
     <Compile Include="Models\NotificationResponse.cs" />
+    <Compile Include="Models\SMTPEmailRequest.cs" />
+    <Compile Include="Models\SMTPEmailResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

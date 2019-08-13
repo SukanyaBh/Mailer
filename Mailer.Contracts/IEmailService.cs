@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mailer.Contracts.Models
+namespace Mailer.Contracts
 {
-    public class EmailResponse:NotificationResponse, IEmailResponse
+    public interface IEmailService : INotificationService<IEmailRequest,IEmailResponse>
     {
+
     }
 }
