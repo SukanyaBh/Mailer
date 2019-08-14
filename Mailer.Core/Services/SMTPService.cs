@@ -23,9 +23,9 @@ namespace Mailer.Core.Services
             this._client = this.GetSMTPClient(this._config);
         }
 
-        public IEmailResponse Notify(IEmailRequest request)
+        public EmailResponse Notify(EmailRequest request)
         {
-            SMTPEmailResponse response = null;
+            EmailResponse response = new EmailResponse();
             try
             {
                 var smtpRequest = request as SMTPEmailRequest;
@@ -38,11 +38,11 @@ namespace Mailer.Core.Services
                     mailMessage.To.Add(new MailAddress(to));
                 });
                 _client.Send(mailMessage);
-                response = new SMTPEmailResponse(NotificationStatus.Sent);
+                response.Status=(NotificationStatus.Sent);
             }
             catch (Exception ex)
             {
-                response = new SMTPEmailResponse(NotificationStatus.NotSent);
+                response.Status = NotificationStatus.Failed;
             }
             return response;
         }

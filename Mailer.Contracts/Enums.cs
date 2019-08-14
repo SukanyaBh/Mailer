@@ -14,9 +14,11 @@ namespace Mailer.Contracts
             PushNotification
         }
 
-        public enum NotificationStatus {
-            Sent,
-            NotSent
+        public enum NotificationStatus
+        {
+            Sent = 1,
+            Pending,
+            Failed,
         }
     }
 }
