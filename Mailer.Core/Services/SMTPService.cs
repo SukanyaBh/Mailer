@@ -28,15 +28,8 @@ namespace Mailer.Core.Services
             EmailResponse response = new EmailResponse();
             try
             {
-                var smtpRequest = request as SMTPEmailRequest;
-                MailMessage mailMessage = new MailMessage();
-                mailMessage.Subject = smtpRequest.Subject;
-                mailMessage.Body = smtpRequest.Content;
-                mailMessage.From = new MailAddress(smtpRequest.FromEmail);
-                smtpRequest.To.ForEach(to =>
-                {
-                    mailMessage.To.Add(new MailAddress(to));
-                });
+
+                MailMessage mailMessage = this.PrepareMailBody(request);
                 _client.Send(mailMessage);
                 response.Status=(NotificationStatus.Sent);
             }
@@ -47,7 +40,37 @@ namespace Mailer.Core.Services
             return response;
         }
 
-        public SmtpClient GetSMTPClient(SMTPConfig config)
+        public async Task<EmailResponse> NotifyAsync(EmailRequest request)
+        {
+            EmailResponse response = new EmailResponse();
+            try
+            {
+
+                MailMessage mailMessage = this.PrepareMailBody(request);
+                await _client.SendMailAsync(mailMessage);
+                response.Status = (NotificationStatus.Sent);
+            }
+            catch (Exception ex)
+            {
+                response.Status = NotificationStatus.Failed;
+            }
+            return response;
+        }
+
+        private MailMessage PrepareMailBody(EmailRequest request)
+        {
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.Subject = request.Subject;
+            mailMessage.Body = request.Content;
+            mailMessage.From = new MailAddress(request.FromEmail);
+            request.To.ForEach(to =>
+            {
+                mailMessage.To.Add(new MailAddress(to));
+            });
+            return mailMessage;
+        }
+
+        private SmtpClient GetSMTPClient(SMTPConfig config)
         {
             SmtpClient client = new SmtpClient(config.Host, config.Port);
             client.EnableSsl = true;
