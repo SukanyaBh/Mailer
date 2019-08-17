@@ -13,6 +13,8 @@ namespace Mailer.Contracts
     /// </summary>
     public interface IEmailService : INotificationService<EmailRequest,EmailResponse>
     {
+        EmailResponse ParseTemplateAndNotify(ITemplateRequest templateRequest, EmailRequest request);
 
+        Task<EmailResponse> ParseTemplateAndNotifyAsync(ITemplateRequest templateRequest, EmailRequest request);
     }
 }

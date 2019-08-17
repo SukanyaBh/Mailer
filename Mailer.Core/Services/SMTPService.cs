@@ -12,18 +12,23 @@ using static Mailer.Contracts.Enums;
 
 namespace Mailer.Core.Services
 {
-    public class SMTPService : IEmailService
+    public class SMTPService : BaseEmailService
     {
         public SMTPConfig _config { get; set; }
         public SmtpClient _client { get; set; }
 
-        public SMTPService(SMTPConfig config)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="parser"></param>
+        public SMTPService(SMTPConfig config, ITemplateParser parser = null) : base(parser)
         {
             this._config = config;
             this._client = this.GetSMTPClient(this._config);
         }
 
-        public EmailResponse Notify(EmailRequest request)
+        public override EmailResponse Notify(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
             try
@@ -31,7 +36,7 @@ namespace Mailer.Core.Services
 
                 MailMessage mailMessage = this.PrepareMailBody(request);
                 _client.Send(mailMessage);
-                response.Status=(NotificationStatus.Sent);
+                response.Status = (NotificationStatus.Sent);
             }
             catch (Exception ex)
             {
@@ -40,7 +45,7 @@ namespace Mailer.Core.Services
             return response;
         }
 
-        public async Task<EmailResponse> NotifyAsync(EmailRequest request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
             try
@@ -55,6 +60,20 @@ namespace Mailer.Core.Services
                 response.Status = NotificationStatus.Failed;
             }
             return response;
+        }
+
+        public override EmailResponse ParseTemplateAndNotify(ITemplateRequest templateRequest, EmailRequest request)
+        {
+            var content = this.PraseTemplate(templateRequest);
+            request.Content = content;
+            return this.Notify(request);
+        }
+
+        public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(ITemplateRequest templateRequest, EmailRequest request)
+        {
+            var content = this.PraseTemplate(templateRequest);
+            request.Content = content;
+            return await this.NotifyAsync(request);
         }
 
         private MailMessage PrepareMailBody(EmailRequest request)
@@ -76,6 +95,8 @@ namespace Mailer.Core.Services
             client.EnableSsl = true;
             client.Credentials = new NetworkCredential(config.Username, config.Password);
             return client;
-        }
+        }      
     }
+
+
 }
