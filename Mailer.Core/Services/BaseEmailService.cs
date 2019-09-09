@@ -11,7 +11,7 @@ namespace Mailer.Core.Services
 {
     public abstract class BaseEmailService : IEmailService
     {
-        public ITemplateParser TemplateParser { get; set; }
+        private ITemplateParser TemplateParser { get; set; }
 
         public BaseEmailService(ITemplateParser parser)
         {

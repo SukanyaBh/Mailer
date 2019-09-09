@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailer", "Mailer\Mailer.csproj", "{0916379C-6618-4BC6-AA31-F5A754E5EA1E}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailer.Contracts", "Mailer.Contracts\Mailer.Contracts.csproj", "{C2AA3A20-837F-4063-A035-87A3A19D4EA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailer.Core", "Mailer.Core\Mailer.Core.csproj", "{90604F46-8947-461E-B11D-33271C8E05C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification", "Notification\Notification.csproj", "{C8B96C02-8B0A-4174-9EC8-F89254F46F09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Mail", "Notification.Mail\Notification.Mail.csproj", "{02CED999-8C4C-4902-84F6-F9B74AE2783F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Mail.SMTP", "Notification.Mail.SMTP\Notification.Mail.SMTP.csproj", "{ECAE80F6-375A-44CA-960C-49BEB2E609EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{90604F46-8947-461E-B11D-33271C8E05C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90604F46-8947-461E-B11D-33271C8E05C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90604F46-8947-461E-B11D-33271C8E05C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B96C02-8B0A-4174-9EC8-F89254F46F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B96C02-8B0A-4174-9EC8-F89254F46F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B96C02-8B0A-4174-9EC8-F89254F46F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B96C02-8B0A-4174-9EC8-F89254F46F09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02CED999-8C4C-4902-84F6-F9B74AE2783F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02CED999-8C4C-4902-84F6-F9B74AE2783F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02CED999-8C4C-4902-84F6-F9B74AE2783F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02CED999-8C4C-4902-84F6-F9B74AE2783F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECAE80F6-375A-44CA-960C-49BEB2E609EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECAE80F6-375A-44CA-960C-49BEB2E609EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECAE80F6-375A-44CA-960C-49BEB2E609EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECAE80F6-375A-44CA-960C-49BEB2E609EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

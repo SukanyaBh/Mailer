@@ -11,7 +11,8 @@ namespace Mailer.Contracts
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
-    public interface INotificationService<TRequest,TResponse> where TRequest:INotificationRequest where TResponse : INotificationResponse
+    public interface INotificationService<TRequest,TResponse>
+        where TRequest:INotificationRequest where TResponse : INotificationResponse
     {
         TResponse Notify(TRequest request);
 

@@ -45,9 +45,9 @@
     <Compile Include="IEmailRequest.cs" />
     <Compile Include="IEmailResponse.cs" />
     <Compile Include="IEmailService.cs" />
-    <Compile Include="INotificationRequest.cs" />
-    <Compile Include="INotificationResponse.cs" />
-    <Compile Include="INotificationService.cs" />
+    <Compile Include="Notification\INotificationRequest.cs" />
+    <Compile Include="Notification\INotificationResponse.cs" />
+    <Compile Include="Notification\INotificationService.cs" />
     <Compile Include="ITemplateParser.cs" />
     <Compile Include="Models\EmailAttachment.cs" />
     <Compile Include="Models\EmailRequest.cs" />
