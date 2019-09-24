@@ -52,12 +52,6 @@
     <Compile Include="Services\TemplateParser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mailer.Contracts\Mailer.Contracts.csproj">
-      <Project>{C2AA3A20-837F-4063-A035-87A3A19D4EA0}</Project>
-      <Name>Mailer.Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
