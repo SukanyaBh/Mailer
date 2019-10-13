@@ -18,10 +18,27 @@ namespace Notification.Mail.Concerns
         }
 
         public string Content { get; set; }
-        public string FromEmail { get; set; }
-        public List<string> To { get; set; }
-        public List<string> CC { get; set; }
-        public List<string> BCC { get; set; }
+        public EmailAddress FromEmail { get; set; }
+        public List<EmailAddress> To { get; set; }
+        public List<EmailAddress> CC { get; set; }
+        public List<EmailAddress> BCC { get; set; }
         public List<EmailAttachment> Attachments { get; set; }
+
+        public bool IsBodyHtml { get; set; }
+
+        public bool IsSetHighImportance { get; set; }
+    }
+
+    public class EmailAddress
+    {
+        public string Email { get; set; }
+
+        public string Name { get; set; }
+
+        public EmailAddress(string email, string name = null)
+        {
+            this.Email = email;
+            this.Name = name ?? email;
+        }
     }
 }

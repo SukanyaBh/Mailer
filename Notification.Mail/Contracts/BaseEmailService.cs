@@ -7,12 +7,12 @@ namespace Notification.Mail.Contracts
     public abstract class BaseEmailService :BaseNotificationService<EmailRequest,EmailResponse>
        ,IEmailContract
     {
-        public BaseEmailService(INotificationBodyResolver notificationBodyResolver):base(notificationBodyResolver)
+        public BaseEmailService(INotificationBodyResolver notificationBodyResolver = null):base(notificationBodyResolver)
         {
-            if (notificationBodyResolver == null)
+            if (this.NotificationBodyResolver == null)
             {
-                notificationBodyResolver = new EmailBodyResolver();
-            }
+                 this.NotificationBodyResolver= new EmailBodyResolver();
+            }            
         }
     }
 }

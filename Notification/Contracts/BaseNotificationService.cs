@@ -9,11 +9,11 @@ namespace Notification.Contracts
     public abstract class BaseNotificationService<TRequest, TResponse> :
         INotificationContract<TRequest, TResponse> where TRequest : INotificationRequest where TResponse : INotificationResponse
     {
-        private INotificationBodyResolver _notificationBodyResolver { get; set; }
+        protected INotificationBodyResolver NotificationBodyResolver { get; set; }
 
         public BaseNotificationService(INotificationBodyResolver notificationBodyResolver)
         {
-            this._notificationBodyResolver = notificationBodyResolver;
+            this.NotificationBodyResolver = notificationBodyResolver;
         }
 
         public abstract TResponse Notify(TRequest request);
@@ -26,7 +26,7 @@ namespace Notification.Contracts
 
         protected string PraseTemplate(INotificationBodyRequest request)
         {
-            return this._notificationBodyResolver.Resolve(request);
+            return this.NotificationBodyResolver.Resolve(request);
         }
 
     }

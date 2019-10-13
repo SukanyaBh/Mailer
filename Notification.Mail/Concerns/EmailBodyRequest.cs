@@ -7,7 +7,7 @@ namespace Notification.Mail.Concerns
 {
     public class EmailBodyRequest : INotificationBodyRequest
     {
-        public string HtmlContent { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string HtmlContent { get; set; }
 
         public Dictionary<string, object> Values { get; set; }
     }

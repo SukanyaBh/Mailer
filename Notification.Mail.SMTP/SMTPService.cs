@@ -22,40 +22,24 @@ namespace Notification.Mail.SMTP
         public SMTPService(SMTPConfig config, INotificationBodyResolver parser = null) : base(parser)
         {
             this._config = config;
-            this._client = this.GetSMTPClient(this._config);
+            this._client = this.GetSMTPClient(this._config);          
         }
 
         public override EmailResponse Notify(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
-            try
-            {
-
-                MailMessage mailMessage = this.PrepareMailBody(request);
-                _client.Send(mailMessage);
-                response.Status = (NotificationStatus.Sent);
-            }
-            catch (Exception ex)
-            {
-                response.Status = NotificationStatus.Failed;
-            }
+            MailMessage mailMessage = this.PrepareMailBody(request);
+            _client.Send(mailMessage);
+            response.Status = (NotificationStatus.Sent);
             return response;
         }
 
         public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
-            try
-            {
-
-                MailMessage mailMessage = this.PrepareMailBody(request);
-                await _client.SendMailAsync(mailMessage);
-                response.Status = (NotificationStatus.Sent);
-            }
-            catch (Exception ex)
-            {
-                response.Status = NotificationStatus.Failed;
-            }
+            MailMessage mailMessage = this.PrepareMailBody(request);
+            await _client.SendMailAsync(mailMessage);
+            response.Status = (NotificationStatus.Sent);
             return response;
         }
 
@@ -78,10 +62,11 @@ namespace Notification.Mail.SMTP
             MailMessage mailMessage = new MailMessage();
             mailMessage.Subject = request.Subject;
             mailMessage.Body = request.Content;
-            mailMessage.From = new MailAddress(request.FromEmail);
+            mailMessage.From = new MailAddress(request.FromEmail.Email);
+            mailMessage.IsBodyHtml = request.IsBodyHtml;
             request.To.ForEach(to =>
             {
-                mailMessage.To.Add(new MailAddress(to));
+                mailMessage.To.Add(new MailAddress(to.Email));
             });
             return mailMessage;
         }
@@ -90,6 +75,7 @@ namespace Notification.Mail.SMTP
         {
             SmtpClient client = new SmtpClient(config.Host, config.Port);
             client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
             client.Credentials = new NetworkCredential(config.Username, config.Password);
             return client;
         }
