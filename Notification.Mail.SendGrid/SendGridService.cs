@@ -22,8 +22,11 @@ namespace Notification.Mail.SendGrid
         public override EmailResponse Notify(EmailRequest request)
         {         
             var from = new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name);
-            var to = new SendGridHelper.Mail.EmailAddress("test@example.com", "Example User");
-            var msg = SendGridHelper.Mail.MailHelper.CreateSingleEmail(from, to, request.Subject,request.Content,"");
+            var to = new List<SendGridHelper.Mail.EmailAddress>();
+            request.To.ForEach(_=> {
+                to.Add(new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name));
+            });
+            var msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject,request.Content,"");
             var response = this._sendGridClient.SendEmailAsync(msg);
             var emailResponse = new EmailResponse();
             if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
