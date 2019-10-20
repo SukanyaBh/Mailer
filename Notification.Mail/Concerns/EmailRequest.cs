@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Notification.Mail.Concerns
 {
-    public class EmailRequest : NotificationRequest
+    public class EmailRequest<T> : NotificatonRequest<T>
     {
         /// <summary>
         /// Base class for Email notifications request

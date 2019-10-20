@@ -10,4 +10,9 @@ namespace Notification.Concerns
         public string Subject { get; set; }
         public DateTime SendTime { get; set; }
     }
+
+    public class NotificatonRequest<T> : NotificationRequest, INotificationRequest<T>
+    {
+        public T AgentDetails { get; set ; }
+    }
 }
