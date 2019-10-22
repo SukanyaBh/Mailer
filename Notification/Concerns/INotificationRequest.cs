@@ -11,9 +11,4 @@ namespace Notification.Concerns
         string Subject { get; set; }
         DateTime SendTime { get; set; }
     }
-
-    public interface INotificationRequest<T> : INotificationRequest
-    {
-        T AgentDetails { get; set; }
-    }
 }

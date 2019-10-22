@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Notification.Mail.Contracts
 {
-    public interface IEmailContract<T> : INotificationContract<EmailRequest<T>,EmailResponse>
+    public interface IEmailContract : INotificationContract<EmailRequest,EmailResponse>
     {
         
     }
