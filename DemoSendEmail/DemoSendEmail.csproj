@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Handlebars, Version=1.10.1.0, Culture=neutral, PublicKeyToken=22225d0bf33cd661, processorArchitecture=MSIL">
+      <HintPath>..\packages\Handlebars.Net.1.10.1\lib\net452\Handlebars.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,11 +51,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mailer\Mailer.csproj">
-      <Project>{0916379c-6618-4bc6-aa31-f5a754e5ea1e}</Project>
-      <Name>Mailer</Name>
+    <ProjectReference Include="..\Notification.Mail.SMTP\Notification.Mail.SMTP.csproj">
+      <Project>{ecae80f6-375a-44ca-960c-49beb2e609ef}</Project>
+      <Name>Notification.Mail.SMTP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notification.Mail\Notification.Mail.csproj">
+      <Project>{02ced999-8c4c-4902-84f6-f9b74ae2783f}</Project>
+      <Name>Notification.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notification\Notification.csproj">
+      <Project>{c8b96c02-8b0a-4174-9ec8-f89254f46f09}</Project>
+      <Name>Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

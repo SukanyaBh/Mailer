@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mailer.Contracts
 {
+    /// <summary>
+    /// Base interface for Email notifications request
+    /// </summary>
     public interface IEmailRequest : INotificationRequest
     {
         string Content { get; set; }

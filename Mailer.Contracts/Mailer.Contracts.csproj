@@ -44,14 +44,18 @@
     <Compile Include="Enums.cs" />
     <Compile Include="IEmailRequest.cs" />
     <Compile Include="IEmailResponse.cs" />
-    <Compile Include="INotificationRequest.cs" />
-    <Compile Include="INotificationResponse.cs" />
-    <Compile Include="INotificationService.cs" />
+    <Compile Include="IEmailService.cs" />
+    <Compile Include="Notification\INotificationRequest.cs" />
+    <Compile Include="Notification\INotificationResponse.cs" />
+    <Compile Include="Notification\INotificationService.cs" />
+    <Compile Include="ITemplateParser.cs" />
     <Compile Include="Models\EmailAttachment.cs" />
     <Compile Include="Models\EmailRequest.cs" />
     <Compile Include="Models\EmailResponse.cs" />
     <Compile Include="Models\NotificationRequest.cs" />
     <Compile Include="Models\NotificationResponse.cs" />
+    <Compile Include="Models\SMTPEmailRequest.cs" />
+    <Compile Include="Models\SMTPEmailResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

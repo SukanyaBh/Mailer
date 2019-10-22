@@ -8,10 +8,13 @@ using static Mailer.Contracts.Enums;
 namespace Mailer.Contracts.Models
 {
     /// <summary>
-    /// Base response class for all types of notifications
+    /// Concrete class for SMTP specific email response
     /// </summary>
-    public class NotificationResponse:INotificationResponse
+    public class SMTPEmailResponse : EmailResponse
     {
-        public NotificationStatus Status { get; set; }
+        public SMTPEmailResponse(NotificationStatus status)
+        {
+                
+        }
     }
 }
