@@ -24,7 +24,8 @@ namespace Notification.Mail.SendGrid
             var mail = this.PrepareMail(request);
             var response = this._sendGridClient.SendEmailAsync(mail);
             var emailResponse = new EmailResponse();
-            if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+            emailResponse.RawResponse = response;
+            if (response.Result.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
                 emailResponse.Status = NotificationStatus.Sent;
             }
@@ -40,7 +41,8 @@ namespace Notification.Mail.SendGrid
             var mail = this.PrepareMail(request);
             var response = await this._sendGridClient.SendEmailAsync(mail);
             var emailResponse = new EmailResponse();
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            emailResponse.RawResponse = response;
+            if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
                 emailResponse.Status = NotificationStatus.Sent;
             }
