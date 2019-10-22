@@ -19,7 +19,7 @@ namespace Notification.Mail.UnitTest
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
@@ -35,7 +35,7 @@ namespace Notification.Mail.UnitTest
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
@@ -60,7 +60,7 @@ namespace Notification.Mail.UnitTest
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
@@ -87,7 +87,7 @@ namespace Notification.Mail.UnitTest
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,

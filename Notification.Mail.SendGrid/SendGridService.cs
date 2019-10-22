@@ -11,7 +11,7 @@ using SendGridHelper = SendGrid.Helpers;
 
 namespace Notification.Mail.SendGrid
 {
-    public class SendGridService : BaseEmailService
+    public class SendGridService : BaseEmailService<SendGridRawRequest>
     {
         private SendGridClient _sendGridClient { get; set; }
         public SendGridService(SendGridConfig config, INotificationBodyResolver resolver = null) : base(resolver)
@@ -19,7 +19,7 @@ namespace Notification.Mail.SendGrid
             this._sendGridClient = this.GetClient(config);
         }
 
-        public override EmailResponse Notify(EmailRequest request)
+        public override EmailResponse Notify(EmailRequest<SendGridRawRequest> request)
         {
             var mail = this.PrepareMail(request);
             var response = this._sendGridClient.SendEmailAsync(mail);
@@ -36,7 +36,7 @@ namespace Notification.Mail.SendGrid
             return emailResponse;
         }
 
-        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest<SendGridRawRequest> request)
         {
             var mail = this.PrepareMail(request);
             var response = await this._sendGridClient.SendEmailAsync(mail);
@@ -53,17 +53,17 @@ namespace Notification.Mail.SendGrid
             return emailResponse;
         }
 
-        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest request)
+        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest request)
+        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
             throw new NotImplementedException();
         }
 
-        private SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest request)
+        private SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest<SendGridRawRequest> request)
         {
             var from = new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name);
             var to = new List<SendGridHelper.Mail.EmailAddress>();

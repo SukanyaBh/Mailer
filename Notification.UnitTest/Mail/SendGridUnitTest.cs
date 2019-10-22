@@ -18,11 +18,11 @@ namespace Notification.UnitTest.Mail
             var service = this.GetSendGridService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<SendGridRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
-                Content = "Test Email"
+                Content = "Test Email",
             };
             var result = service.Notify(request);
             Assert.AreEqual(NotificationStatus.Sent, result.Status);
@@ -34,7 +34,7 @@ namespace Notification.UnitTest.Mail
             var service = this.GetSendGridService();
             List<EmailAddress> toMails = new List<EmailAddress>();
             toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            var request = new EmailRequest<SendGridRawRequest>("Test Email", DateTime.UtcNow)
             {
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
