@@ -7,5 +7,7 @@ namespace Notification.Mail.SendGrid
     public class SendGridConfig
     {
         public string ApiKey { get; set; }
+
+
     }
 }

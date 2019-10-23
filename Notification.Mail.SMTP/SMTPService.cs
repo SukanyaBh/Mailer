@@ -3,6 +3,7 @@ using Notification.Contracts;
 using Notification.Mail.Concerns;
 using Notification.Mail.Contracts;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace Notification.Mail.SMTP
 {
     public class SMTPService : BaseEmailService<BaseAgentRawRequest>
     {
-        public SMTPConfig _config { get; set; }
-        public SmtpClient _client { get; set; }
+        private SMTPConfig _config { get; set; }
+        private SmtpClient _client { get; set; }
 
         /// <summary>
         /// 
@@ -30,7 +31,7 @@ namespace Notification.Mail.SMTP
             EmailResponse response = new EmailResponse();
             MailMessage mailMessage = this.PrepareMailBody(request);
             _client.Send(mailMessage);
-            response.Status = (NotificationStatus.Sent);
+            response.Status = (NotificationStatus.Pending);
             return response;
         }
 
@@ -62,16 +63,20 @@ namespace Notification.Mail.SMTP
             MailMessage mailMessage = new MailMessage();
             mailMessage.Subject = request.Subject;
             mailMessage.Body = request.Content;
-            mailMessage.From = new MailAddress(request.FromEmail.Email);
+            mailMessage.From = new MailAddress(request.FromEmail.Email, request.FromEmail.Name);
             mailMessage.IsBodyHtml = request.IsBodyHtml;
             request.To.ForEach(to =>
             {
-                mailMessage.To.Add(new MailAddress(to.Email));
+                mailMessage.To.Add(new MailAddress(to.Email,to.Name));
+            });
+            var index = 0;
+            request.Attachments.ForEach((_)=> {
+                mailMessage.Attachments.Insert(index,new Attachment() { });
             });
             return mailMessage;
         }
 
-        private SmtpClient GetSMTPClient(SMTPConfig config)
+        protected virtual SmtpClient GetSMTPClient(SMTPConfig config)
         {
             SmtpClient client = new SmtpClient(config.Host, config.Port);
             client.EnableSsl = true;

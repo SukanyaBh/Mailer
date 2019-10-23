@@ -8,7 +8,7 @@ namespace Notification.Mail.SendGrid
 {
     public class SendGridRawRequest : BaseAgentRawRequest, IAgentRawRequest
     {
-        public bool IsUseDefinedTemplate { get; set; }
+        public bool UsePreDefinedTemplate { get; set; }
 
         public string TemplateId { get; set; }
 

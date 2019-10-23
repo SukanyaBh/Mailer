@@ -23,6 +23,12 @@ namespace Notification.UnitTest.Mail
                 FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
                 To = toMails,
                 Content = "Test Email",
+                RawRequest = new SendGridRawRequest() 
+                {
+                    UsePreDefinedTemplate = true,
+                    DynamicValues = null,
+                    TemplateId = ""
+                }
             };
             var result = service.Notify(request);
             Assert.AreEqual(NotificationStatus.Sent, result.Status);

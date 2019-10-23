@@ -13,7 +13,7 @@ namespace Notification.Mail.SendGrid
 {
     public class SendGridService : BaseEmailService<SendGridRawRequest>
     {
-        private SendGridClient _sendGridClient { get; set; }
+        protected SendGridClient _sendGridClient { get; set; }
         public SendGridService(SendGridConfig config, INotificationBodyResolver resolver = null) : base(resolver)
         {
             this._sendGridClient = this.GetClient(config);
@@ -65,20 +65,27 @@ namespace Notification.Mail.SendGrid
 
         private SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest<SendGridRawRequest> request)
         {
+            var rawRequest = request.RawRequest;
             var from = new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name);
             var to = new List<SendGridHelper.Mail.EmailAddress>();
             request.To.ForEach(_ => {
                 to.Add(new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name));
             });
-            var msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, "");
+
+            SendGridHelper.Mail.SendGridMessage msg;
+            if (rawRequest != null && rawRequest.UsePreDefinedTemplate) 
+            {
+                msg = SendGridHelper.Mail.MailHelper.CreateSingleTemplateEmailToMultipleRecipients(from, to, rawRequest.TemplateId,rawRequest.DynamicValues);
+            }
+
+            msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, "");
             return msg;
         }
 
-        private SendGridClient GetClient(SendGridConfig config)
+        protected virtual SendGridClient GetClient(SendGridConfig config)
         {
             var client = new SendGridClient(config.ApiKey);
             return client;
         }
-
     }
 }
