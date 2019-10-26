@@ -3,16 +3,18 @@ using Notification.Contracts;
 using Notification.Mail.Concerns;
 using Notification.Mail.Contracts;
 using System;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace Notification.Mail.SMTP
 {
-    public class SMTPService : BaseEmailService
+    public class SMTPService : BaseEmailService<BaseAgentRawRequest>
     {
-        public SMTPConfig _config { get; set; }
-        public SmtpClient _client { get; set; }
+        private SMTPConfig _config { get; set; }
+        private SmtpClient _client { get; set; }
 
         /// <summary>
         /// 
@@ -25,16 +27,16 @@ namespace Notification.Mail.SMTP
             this._client = this.GetSMTPClient(this._config);          
         }
 
-        public override EmailResponse Notify(EmailRequest request)
+        public override EmailResponse Notify(EmailRequest<BaseAgentRawRequest> request)
         {
             EmailResponse response = new EmailResponse();
             MailMessage mailMessage = this.PrepareMailBody(request);
             _client.Send(mailMessage);
-            response.Status = (NotificationStatus.Sent);
+            response.Status = (NotificationStatus.Pending);
             return response;
         }
 
-        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest<BaseAgentRawRequest> request)
         {
             EmailResponse response = new EmailResponse();
             MailMessage mailMessage = this.PrepareMailBody(request);
@@ -43,35 +45,39 @@ namespace Notification.Mail.SMTP
             return response;
         }
 
-        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest request)
+        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
         {
-            var content = this.PraseTemplate(templateRequest);
-            request.Content = content;
+            request.Content = this.PraseTemplate(templateRequest);
             return this.Notify(request);
         }
 
-        public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest request)
+        public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
         {
-            var content = this.PraseTemplate(templateRequest);
-            request.Content = content;
+            request.Content = this.PraseTemplate(templateRequest);
             return await this.NotifyAsync(request);
         }
 
-        private MailMessage PrepareMailBody(EmailRequest request)
+        protected virtual MailMessage PrepareMailBody(EmailRequest<BaseAgentRawRequest> request)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.Subject = request.Subject;
             mailMessage.Body = request.Content;
-            mailMessage.From = new MailAddress(request.FromEmail.Email);
+            mailMessage.From = new MailAddress(request.FromEmail.Email, request.FromEmail.Name);
             mailMessage.IsBodyHtml = request.IsBodyHtml;
             request.To.ForEach(to =>
             {
-                mailMessage.To.Add(new MailAddress(to.Email));
+                mailMessage.To.Add(new MailAddress(to.Email,to.Name));
+            });
+            var index = 0;
+            request.Attachments?.ForEach((_)=> {
+                var stream = new MemoryStream(_.Content);
+                mailMessage.Attachments.Insert(index,new Attachment(stream,_.Name));
+                index++;
             });
             return mailMessage;
         }
 
-        private SmtpClient GetSMTPClient(SMTPConfig config)
+        protected virtual SmtpClient GetSMTPClient(SMTPConfig config)
         {
             SmtpClient client = new SmtpClient(config.Host, config.Port);
             client.EnableSsl = true;
