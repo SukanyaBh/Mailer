@@ -55,15 +55,17 @@ namespace Notification.Mail.SendGrid
 
         public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
-            throw new NotImplementedException();
+            request.Content = this.NotificationBodyResolver.Resolve(templateRequest);
+            return this.Notify(request);
         }
 
         public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
-            throw new NotImplementedException();
+            request.Content = this.NotificationBodyResolver.Resolve(templateRequest);
+            return this.NotifyAsync(request);
         }
 
-        private SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest<SendGridRawRequest> request)
+        protected virtual SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest<SendGridRawRequest> request)
         {
             var rawRequest = request.RawRequest;
             var from = new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name);
@@ -73,18 +75,22 @@ namespace Notification.Mail.SendGrid
             });
 
             SendGridHelper.Mail.SendGridMessage msg;
-            if (rawRequest != null && rawRequest.UsePreDefinedTemplate) 
+            if (rawRequest != null && rawRequest.UsePreDefinedTemplate)
             {
-                msg = SendGridHelper.Mail.MailHelper.CreateSingleTemplateEmailToMultipleRecipients(from, to, rawRequest.TemplateId,rawRequest.DynamicValues);
+                msg = SendGridHelper.Mail.MailHelper.CreateSingleTemplateEmailToMultipleRecipients(from, to, rawRequest.TemplateId, rawRequest.DynamicValues);
+            }
+            else 
+            {
+                msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, request.IsBodyHtml ? request.Content : string.Empty);
+
             }
 
-            msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, "");
             return msg;
         }
 
         protected virtual SendGridClient GetClient(SendGridConfig config)
         {
-            var client = new SendGridClient(config.ApiKey);
+            var client = new SendGridClient(config.ApiKey,config.Host,config.RequestHeaders,config.Version,config.UrlPath);
             return client;
         }
     }

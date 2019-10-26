@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Mail.SMTP", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.UnitTest", "Notification.UnitTest\Notification.UnitTest.csproj", "{66173E42-9C35-4A6C-8F9C-7E34E1BDF0BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Mail.SendGrid", "Notification.Mail.SendGrid\Notification.Mail.SendGrid.csproj", "{96D32035-85A2-4428-A5B0-28BB1D75755D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Mail.SendGrid", "Notification.Mail.SendGrid\Notification.Mail.SendGrid.csproj", "{96D32035-85A2-4428-A5B0-28BB1D75755D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Mail.AmazonSES", "Notification.Mail.AmazonSES\Notification.Mail.AmazonSES.csproj", "{E0522B66-1F8E-4CE7-8F9B-7CDDE9B63437}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Mail.SparkPost", "Notification.Mail.SparkPost\Notification.Mail.SparkPost.csproj", "{1B26820E-5595-4FA1-85ED-77CBE4345AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{96D32035-85A2-4428-A5B0-28BB1D75755D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96D32035-85A2-4428-A5B0-28BB1D75755D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96D32035-85A2-4428-A5B0-28BB1D75755D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0522B66-1F8E-4CE7-8F9B-7CDDE9B63437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0522B66-1F8E-4CE7-8F9B-7CDDE9B63437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0522B66-1F8E-4CE7-8F9B-7CDDE9B63437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0522B66-1F8E-4CE7-8F9B-7CDDE9B63437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B26820E-5595-4FA1-85ED-77CBE4345AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B26820E-5595-4FA1-85ED-77CBE4345AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B26820E-5595-4FA1-85ED-77CBE4345AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B26820E-5595-4FA1-85ED-77CBE4345AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

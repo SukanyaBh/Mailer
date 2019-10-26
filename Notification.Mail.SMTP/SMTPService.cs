@@ -3,6 +3,7 @@ using Notification.Contracts;
 using Notification.Mail.Concerns;
 using Notification.Mail.Contracts;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -46,19 +47,17 @@ namespace Notification.Mail.SMTP
 
         public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
         {
-            var content = this.PraseTemplate(templateRequest);
-            request.Content = content;
+            request.Content = this.PraseTemplate(templateRequest);
             return this.Notify(request);
         }
 
         public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
         {
-            var content = this.PraseTemplate(templateRequest);
-            request.Content = content;
+            request.Content = this.PraseTemplate(templateRequest);
             return await this.NotifyAsync(request);
         }
 
-        private MailMessage PrepareMailBody(EmailRequest<BaseAgentRawRequest> request)
+        protected virtual MailMessage PrepareMailBody(EmailRequest<BaseAgentRawRequest> request)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.Subject = request.Subject;
@@ -70,8 +69,10 @@ namespace Notification.Mail.SMTP
                 mailMessage.To.Add(new MailAddress(to.Email,to.Name));
             });
             var index = 0;
-            request.Attachments.ForEach((_)=> {
-                mailMessage.Attachments.Insert(index,new Attachment() { });
+            request.Attachments?.ForEach((_)=> {
+                var stream = new MemoryStream(_.Content);
+                mailMessage.Attachments.Insert(index,new Attachment(stream,_.Name));
+                index++;
             });
             return mailMessage;
         }

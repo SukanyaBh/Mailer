@@ -52,10 +52,8 @@ namespace Notification.UnitTest.Mail
 
         private SendGridService GetSendGridService()
         {
-            var sendGridConifg = new SendGridConfig()
-            {
-                ApiKey = "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"
-            };
+            var apiKey = "";
+            var sendGridConifg = new SendGridConfig(apiKey);
             var service = new SendGridService(sendGridConifg);
             return service;
         }
