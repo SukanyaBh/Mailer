@@ -21,7 +21,7 @@ namespace Notification.Mail.SMTP
         /// </summary>
         /// <param name="config"></param>
         /// <param name="parser"></param>
-        public SMTPService(SMTPConfig config, INotificationBodyResolver parser = null) : base(parser)
+        public SMTPService(SMTPConfig config, INotificationBodyParser parser = null) : base(parser)
         {
             this._config = config;
             this._client = this.GetSMTPClient(this._config);          

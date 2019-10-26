@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Notification.Contracts
 {
-    public interface INotificationBodyResolver
+    public interface INotificationBodyParser
     {
-        string Resolve(INotificationBodyRequest request);
+        string Parse(INotificationBodyRequest request);
     }
 }

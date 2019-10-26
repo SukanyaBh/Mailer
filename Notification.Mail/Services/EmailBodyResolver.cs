@@ -5,9 +5,9 @@ using Notification.Mail.Concerns;
 
 namespace Notification.Mail.Services
 {
-    class EmailBodyResolver : INotificationBodyResolver
+    class EmailBodyResolver : INotificationBodyParser
     {
-        public string Resolve(INotificationBodyRequest request)
+        public string Parse(INotificationBodyRequest request)
         {
             var templateRequest = request as EmailBodyRequest;
             var compiledTemplate = Handlebars.Compile(request.HtmlContent);

@@ -8,11 +8,11 @@ namespace Notification.Mail.Contracts
     public abstract class BaseEmailService<T> :BaseNotificationService<EmailRequest<T>,EmailResponse>, IEmailContract<T> where T : IAgentRawRequest
        
     {
-        public BaseEmailService(INotificationBodyResolver notificationBodyResolver = null):base(notificationBodyResolver)
+        public BaseEmailService(INotificationBodyParser parser = null):base(parser)
         {
-            if (this.NotificationBodyResolver == null)
+            if (this.NotificationBodyParser == null)
             {
-                 this.NotificationBodyResolver= new EmailBodyResolver();
+                 this.NotificationBodyParser= new EmailBodyResolver();
             }            
         }
     }

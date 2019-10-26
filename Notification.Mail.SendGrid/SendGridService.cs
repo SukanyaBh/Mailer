@@ -14,7 +14,7 @@ namespace Notification.Mail.SendGrid
     public class SendGridService : BaseEmailService<SendGridRawRequest>
     {
         protected SendGridClient _sendGridClient { get; set; }
-        public SendGridService(SendGridConfig config, INotificationBodyResolver resolver = null) : base(resolver)
+        public SendGridService(SendGridConfig config, INotificationBodyParser resolver = null) : base(resolver)
         {
             this._sendGridClient = this.GetClient(config);
         }
@@ -55,13 +55,13 @@ namespace Notification.Mail.SendGrid
 
         public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
-            request.Content = this.NotificationBodyResolver.Resolve(templateRequest);
+            request.Content = this.PraseTemplate(templateRequest);
             return this.Notify(request);
         }
 
         public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
         {
-            request.Content = this.NotificationBodyResolver.Resolve(templateRequest);
+            request.Content = this.PraseTemplate(templateRequest);
             return this.NotifyAsync(request);
         }
 

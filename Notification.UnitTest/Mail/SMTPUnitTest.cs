@@ -26,7 +26,7 @@ namespace Notification.Mail.UnitTest
                 Content = "Test Email"
             };
             var result = service.Notify(request);
-            Assert.AreEqual(NotificationStatus.Sent, result.Status);
+            Assert.AreEqual(NotificationStatus.Pending, result.Status);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace Notification.Mail.UnitTest
         [TestMethod]
         public void ParseTemplateAndNotify_Test()
         {
-            var html = File.ReadAllText("./Test_Template.html");
+            var html = File.ReadAllText("./Mail/Test_Template.html");
             Dictionary<string, object> tokens = new Dictionary<string, object>();
             tokens.Add("Heading", "Test Ignore");
             tokens.Add("Desc", "This came from unit test");
@@ -73,13 +73,13 @@ namespace Notification.Mail.UnitTest
             };
             var result = service.ParseTemplateAndNotify(bodyRequest, request);
 
-            Assert.AreEqual(NotificationStatus.Sent, result.Status);
+            Assert.AreEqual(NotificationStatus.Pending, result.Status);
         }
 
         [TestMethod]
         public async Task ParseTemplateAndNotifyAsync_Test()
         {
-            var html = File.ReadAllText("./Test_Template.html");
+            var html = File.ReadAllText("./Mail/Test_Template.html");
             Dictionary<string, object> tokens = new Dictionary<string, object>();
             tokens.Add("Heading", "Test Ignore");
             tokens.Add("Desc", "This came from unit test");
