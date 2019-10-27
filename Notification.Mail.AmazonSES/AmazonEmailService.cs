@@ -16,7 +16,7 @@ namespace Notification.Mail.AmazonSES
     {
         private AmazonSimpleEmailServiceClient _client { get; set; }
 
-        public AmazonEmailService(AmazonEmailConfig config,INotificationBodyParser parser) :base(parser)
+        public AmazonEmailService(AmazonEmailConfig config,INotificationBodyParser parser = null) :base(parser)
         {
             this._client = this.GetClient(config);
         }

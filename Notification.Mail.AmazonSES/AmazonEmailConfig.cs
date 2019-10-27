@@ -12,5 +12,12 @@ namespace Notification.Mail.AmazonSES
         public string AwsAccessKeyId { get; set; }
 
         public string AwsSecretAccessKey { get; set; }
+
+        public AmazonEmailConfig(RegionEndpoint regionEndpoint,string awsAccessKeyId,string awsSecretAccessKey) 
+        {
+            this.RegionEndPoint = regionEndpoint;
+            this.AwsAccessKeyId = awsAccessKeyId;
+            this.AwsSecretAccessKey = awsSecretAccessKey;
+        }
     }
 }

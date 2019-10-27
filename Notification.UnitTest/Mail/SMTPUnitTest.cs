@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Notification.Mail.UnitTest
+namespace Notification.UnitTest.Mail
 {
     [TestClass]
     public class SMTPUnitTest
@@ -107,7 +107,7 @@ namespace Notification.Mail.UnitTest
 
         private SMTPService GetSMTPService()
         {
-            var smtpService = new SMTPService(new SMTPConfig() { Host = "smtp.gmail.com", Port = 587, Username = "ms.mahendra666@gmail.com", Password = "M@hi9847" });
+            var smtpService = new SMTPService(new SMTPConfig("ms.mahendra666@gmail.com", "", 587, "smtp.gmail.com"));
             return smtpService;
         }
     }

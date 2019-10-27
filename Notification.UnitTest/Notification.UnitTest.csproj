@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Notification.Mail.AmazonSES\Notification.Mail.AmazonSES.csproj" />
     <ProjectReference Include="..\Notification.Mail.SendGrid\Notification.Mail.SendGrid.csproj" />
     <ProjectReference Include="..\Notification.Mail.SMTP\Notification.Mail.SMTP.csproj" />
     <ProjectReference Include="..\Notification.Mail\Notification.Mail.csproj" />
