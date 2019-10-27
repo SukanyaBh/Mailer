@@ -103,7 +103,7 @@ namespace Notification.Mail.UnitTest
 
         private SMTPService GetSMTPService()
         {
-            var smtpService = new SMTPService(new SMTPConfig() { Host = "smtp.gmail.com", Port = 587, Username = "ms.mahendra666@gmail.com", Password = "M@hi9847" });
+            var smtpService = new SMTPService(new SMTPConfig() { Host = "smtp.gmail.com", Port = 587, Username = "ms.mahendra666@gmail.com", Password = "" });
             return smtpService;
         }
     }
