@@ -46,7 +46,7 @@ namespace Notification.UnitTest.Mail
         private AmazonEmailService GetAmazonEmailService()
         {
             
-            var amazonEmailConfig = new AmazonEmailConfig(Amazon.RegionEndpoint.USEast1, "AKIAIYHOE24EJQ75ZCHQ", "TeYY50TsRepRFR6LVVdDeP8BV2c1ADqVYZb8GR0y");
+            var amazonEmailConfig = new AmazonEmailConfig(Amazon.RegionEndpoint.USEast1, "", "");
             var service = new AmazonEmailService(amazonEmailConfig);
             return service;
         }
