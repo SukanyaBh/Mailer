@@ -24,8 +24,8 @@ Nuget links:
     
     // Creating Agent instance.
     IEmailContract contract = new SMTPService(config);
-    // IEmailContract contract = new SendGridService(config);
-    // IEmailContract contract = new AmazonEmailService(config);
+    // IEmailContract contract = new SendGridService(sendGridConifg);
+    // IEmailContract contract = new AmazonEmailService(amazonEmailConfig);
     
     // Creating Request
     List<EmailAddress> toMails = new List<EmailAddress>();
@@ -41,7 +41,8 @@ Nuget links:
     
     // Call notify method to send email
     var response =await contract.NotifyAsync(request);
-    
+    //Check status of email
+    var status = response.Status
     // Raw response of email agent
     var rawResponse = response.RawResponse;
 ```
@@ -49,13 +50,13 @@ Nuget links:
 
 ```c#
     // While creating agent instance you can send your own INotificationBodyParser which will parse html template and build dynamic         template
-    INotificationBodyParser parser = //Create your notification body parser object;
+    INotificationBodyParser parser = null; //Create your notification body parser object
     //For body request use INotificationBodyRequest
     IEmailContract contract = new SMTPService(config,parser);
     // To use default INotificationBodyParser no need of sending parser parameter
     
     //Creating Default Email Body request for dynamic template
-    string html = // Assign your template string here
+    string html = ""; // Assign your template string here
      Dictionary<string, object> tokens = new Dictionary<string, object>();
      tokens.Add("Heading", "Test Ignore");
      tokens.Add("Desc", "This came from unit test");
