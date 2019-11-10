@@ -16,10 +16,10 @@ namespace Notification.UnitTest.Mail
         {
             var service = this.GetAmazonEmailService();
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Amazon ses Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Amazon ses Test Email", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Test Email",
             };
@@ -32,10 +32,10 @@ namespace Notification.UnitTest.Mail
         {
             var service = this.GetAmazonEmailService();
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Send grid  Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Amazon ses", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Test Email"
             };

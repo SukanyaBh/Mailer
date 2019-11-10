@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Notification.Concerns
 {
+    /// <summary>
+    /// Notification Response
+    /// </summary>
+    /// <seealso cref="Notification.Concerns.INotificationResponse" />
     public class NotificationResponse : INotificationResponse
     {
         public NotificationStatus Status { get; set; }

@@ -18,10 +18,10 @@ namespace Notification.UnitTest.Mail
         {
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Test Email", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Test Email"
             };
@@ -35,10 +35,10 @@ namespace Notification.UnitTest.Mail
             var service = this.GetSMTPService();
             var pdfContent = File.ReadAllBytes("./Mail/dummy.pdf");
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Test Email", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Please Ignore it once",
                 Attachments = new List<EmailAttachment>()
@@ -63,10 +63,10 @@ namespace Notification.UnitTest.Mail
             };
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Test Email", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Test Email",
                 IsBodyHtml = true
@@ -90,10 +90,10 @@ namespace Notification.UnitTest.Mail
             };
             var service = this.GetSMTPService();
             List<EmailAddress> toMails = new List<EmailAddress>();
-            toMails.Add(new EmailAddress("mahendrakukka16@gmail.com"));
-            var request = new EmailRequest<BaseAgentRawRequest>("Test Email", DateTime.UtcNow)
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Test Email", DateTime.UtcNow)
             {
-                FromEmail = new EmailAddress("ms.mahendra666@gmail.com"),
+                FromEmail = new EmailAddress(""),
                 To = toMails,
                 Content = "Test Email",
                 IsBodyHtml = true
@@ -107,7 +107,7 @@ namespace Notification.UnitTest.Mail
 
         private SMTPService GetSMTPService()
         {
-            var smtpService = new SMTPService(new SMTPConfig("ms.mahendra666@gmail.com", "", 587, "smtp.gmail.com"));
+            var smtpService = new SMTPService(new SMTPConfig("","", 587, "smtp.gmail.com"));
             return smtpService;
         }
     }

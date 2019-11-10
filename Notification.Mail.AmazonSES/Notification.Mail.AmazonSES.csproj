@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.1.1</Version>
+    <Authors>Mahendra, Sukanya</Authors>
+    <Company>Notification.Mail.AmazonSES</Company>
+    <Description>Wrapper for amazon ses mail sending</Description>
+    <PackageProjectUrl>https://github.com/SukanyaBh/Mailer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SukanyaBh/Mailer</RepositoryUrl>
+    <PackageTags>Notification, Email, Amazonses</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

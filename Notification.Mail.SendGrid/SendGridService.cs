@@ -11,7 +11,7 @@ using SendGridHelper = SendGrid.Helpers;
 
 namespace Notification.Mail.SendGrid
 {
-    public class SendGridService : BaseEmailService<SendGridRawRequest>
+    public class SendGridService : BaseEmailService
     {
         protected SendGridClient _sendGridClient { get; set; }
         public SendGridService(SendGridConfig config, INotificationBodyParser resolver = null) : base(resolver)
@@ -19,24 +19,17 @@ namespace Notification.Mail.SendGrid
             this._sendGridClient = this.GetClient(config);
         }
 
-        public override EmailResponse Notify(EmailRequest<SendGridRawRequest> request)
+        public override EmailResponse Notify(EmailRequest request)
         {
             var mail = this.PrepareMail(request);
             var response = this._sendGridClient.SendEmailAsync(mail);
             var emailResponse = new EmailResponse();
             emailResponse.RawResponse = response;
-            if (response.Result.StatusCode == System.Net.HttpStatusCode.Accepted)
-            {
-                emailResponse.Status = NotificationStatus.Sent;
-            }
-            else
-            {
-                emailResponse.Status = NotificationStatus.Failed;
-            }
+            emailResponse.Status = NotificationStatus.Pending;
             return emailResponse;
         }
 
-        public override async Task<EmailResponse> NotifyAsync(EmailRequest<SendGridRawRequest> request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
         {
             var mail = this.PrepareMail(request);
             var response = await this._sendGridClient.SendEmailAsync(mail);
@@ -53,38 +46,37 @@ namespace Notification.Mail.SendGrid
             return emailResponse;
         }
 
-        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
+        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             request.Content = this.PraseTemplate(templateRequest);
             return this.Notify(request);
         }
 
-        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<SendGridRawRequest> request)
+        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             request.Content = this.PraseTemplate(templateRequest);
             return this.NotifyAsync(request);
         }
 
-        protected virtual SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest<SendGridRawRequest> request)
+        protected virtual SendGridHelper.Mail.SendGridMessage PrepareMail(EmailRequest request)
         {
-            var rawRequest = request.RawRequest;
             var from = new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name);
             var to = new List<SendGridHelper.Mail.EmailAddress>();
             request.To.ForEach(_ => {
                 to.Add(new SendGridHelper.Mail.EmailAddress(request.FromEmail.Email, request.FromEmail.Name));
             });
 
-            SendGridHelper.Mail.SendGridMessage msg;
-            if (rawRequest != null && rawRequest.UsePreDefinedTemplate)
-            {
-                msg = SendGridHelper.Mail.MailHelper.CreateSingleTemplateEmailToMultipleRecipients(from, to, rawRequest.TemplateId, rawRequest.DynamicValues);
-            }
-            else 
-            {
-                msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, request.IsBodyHtml ? request.Content : string.Empty);
+            SendGridHelper.Mail.SendGridMessage msg = SendGridHelper.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(from, to, request.Subject, request.Content, request.IsBodyHtml ? request.Content : string.Empty);
 
-            }
-
+            request.Attachments?.ForEach(_ => {
+                msg.AddAttachment(new SendGridHelper.Mail.Attachment() 
+                {
+                    Content = Convert.ToBase64String(_.Content),
+                    Filename = _.Name,
+                    Type = _.Type
+                });
+            });
+           
             return msg;
         }
 

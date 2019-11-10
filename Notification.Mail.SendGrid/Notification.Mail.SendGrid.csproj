@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.1.1</Version>
+    <Authors>Mahendra, Sukanya</Authors>
+    <Company>Notification.Mail.SendGrid</Company>
+    <PackageProjectUrl>https://github.com/SukanyaBh/Mailer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SukanyaBh/Mailer</RepositoryUrl>
+    <PackageTags>Email, Notification, Sendgrid</PackageTags>
+    <Description>Wrapper for sendgrid email sending</Description>
   </PropertyGroup>
 
   <ItemGroup>

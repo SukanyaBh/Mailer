@@ -1,9 +1,10 @@
-﻿using Notification.Mail.SMTP;
+﻿using Notification.Concerns;
+using Notification.Mail.Concerns;
+using Notification.Mail.Contracts;
+using Notification.Mail.SendGrid;
+using Notification.Mail.SMTP;
 using System;
 using System.Collections.Generic;
-using Notification.Mail;
-using Notification.Mail.Contracts;
-using Notification.Mail.Concerns;
 
 namespace DemoSendEmail
 {
@@ -11,14 +12,39 @@ namespace DemoSendEmail
     {
         public static void Main(string[] args)
         {
-            //INotificationContract notificationService = new SMTPEmailService("smtp.gmail.com", 587, "sukanyabhavanibatla@gmail.com", "$ukanya0494");
-            //List<string> toMails = new List<string>() { "sukanya.b@technovert.com"};
-            //notificationService.SendNotification(new EmailRequest() { FromMail = "sukanyabhavanibatla@gmail.com", To = toMails, Content="Test", Subject="Test Email" });
+            IEmailContract contract = new SMTPService(new SMTPConfig("", "v@rP@ssw0rd=FuckU", 587, "smtp.gmail.com"));
+            List<EmailAddress> toMails = new List<EmailAddress>();
+            toMails.Add(new EmailAddress(""));
+            var request = new EmailRequest("Test Email", DateTime.UtcNow)
+            {
+                FromEmail = new EmailAddress(""),
+                To = toMails,
+                Content = "Test Email"
+            };
+            var response = contract.NotifyAsync(request);
+        }
+    }
 
-            //IEmailContract service = new SMTPService(new SMTPConfig() { Host = "smtp.gmail.com", Port = 587, Username = "ms.mahendra666@gmail.com", Password = "M@hi9847" });
-            //List<string> toMails = new List<string>() { "mahendra.k@technovert.com" };
-            //Console.WriteLine(service.Notify(new EmailRequest("Test Email", DateTime.UtcNow) { FromEmail = "ms.mahendra666@gmail.com", To = toMails, Content = "Test Email" }).Status);
-            //Console.Read();
+    public interface IProduct 
+    {
+        void Get();
+    }
+
+    public interface IProduct<T> : IProduct 
+    {
+        void GetAll(T request);
+    }
+
+    public class Product<T> : IProduct<T>
+    {
+        public void Get()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void GetAll(T request)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

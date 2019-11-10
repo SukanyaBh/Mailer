@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Notification.Mail.SMTP
 {
-    public class SMTPService : BaseEmailService<BaseAgentRawRequest>
+    public class SMTPService : BaseEmailService
     {
         private SMTPConfig _config { get; set; }
         private SmtpClient _client { get; set; }
@@ -27,7 +27,7 @@ namespace Notification.Mail.SMTP
             this._client = this.GetSMTPClient(this._config);          
         }
 
-        public override EmailResponse Notify(EmailRequest<BaseAgentRawRequest> request)
+        public override EmailResponse Notify(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
             MailMessage mailMessage = this.PrepareMailBody(request);
@@ -36,7 +36,7 @@ namespace Notification.Mail.SMTP
             return response;
         }
 
-        public override async Task<EmailResponse> NotifyAsync(EmailRequest<BaseAgentRawRequest> request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
         {
             EmailResponse response = new EmailResponse();
             MailMessage mailMessage = this.PrepareMailBody(request);
@@ -45,19 +45,19 @@ namespace Notification.Mail.SMTP
             return response;
         }
 
-        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
+        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             request.Content = this.PraseTemplate(templateRequest);
             return this.Notify(request);
         }
 
-        public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
+        public override async Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             request.Content = this.PraseTemplate(templateRequest);
             return await this.NotifyAsync(request);
         }
 
-        protected virtual MailMessage PrepareMailBody(EmailRequest<BaseAgentRawRequest> request)
+        protected virtual MailMessage PrepareMailBody(EmailRequest request)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.Subject = request.Subject;

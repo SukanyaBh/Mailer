@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Notification.Mail.AmazonSES
 {
-    public class AmazonEmailService : BaseEmailService<BaseAgentRawRequest>
+    public class AmazonEmailService : BaseEmailService
     {
         private AmazonSimpleEmailServiceClient _client { get; set; }
 
@@ -22,7 +22,7 @@ namespace Notification.Mail.AmazonSES
         }
 
 
-        public override EmailResponse Notify(EmailRequest<BaseAgentRawRequest> request)
+        public override EmailResponse Notify(EmailRequest request)
         {
             var mailBody = this.PrepareMailBody(request);
             var rawResponse =  this._client.SendEmailAsync(mailBody);
@@ -32,7 +32,7 @@ namespace Notification.Mail.AmazonSES
             return response;
         }
 
-        public override async Task<EmailResponse> NotifyAsync(EmailRequest<BaseAgentRawRequest> request)
+        public override async Task<EmailResponse> NotifyAsync(EmailRequest request)
         {
             var mailBody = this.PrepareMailBody(request);
             var rawResponse =await this._client.SendEmailAsync(mailBody);
@@ -50,17 +50,17 @@ namespace Notification.Mail.AmazonSES
             return response;
         }
 
-        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
+        public override EmailResponse ParseTemplateAndNotify(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest<BaseAgentRawRequest> request)
+        public override Task<EmailResponse> ParseTemplateAndNotifyAsync(INotificationBodyRequest templateRequest, EmailRequest request)
         {
             throw new NotImplementedException();
         }
 
-        protected virtual SendEmailRequest PrepareMailBody(EmailRequest<BaseAgentRawRequest> request) 
+        protected virtual SendEmailRequest PrepareMailBody(EmailRequest request) 
         {
             var body = new Body();
             if (request.IsBodyHtml)

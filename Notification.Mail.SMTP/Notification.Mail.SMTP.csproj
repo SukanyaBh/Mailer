@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>1.1.1</Version>
+    <PackageProjectUrl>https://github.com/SukanyaBh/Mailer</PackageProjectUrl>
+    <Authors>Mahendra, Sukanya</Authors>
+    <RepositoryUrl>https://github.com/SukanyaBh/Mailer</RepositoryUrl>
+    <PackageTags>Email, Notification, SMTP</PackageTags>
+    <Company>Notification.Mail.SMTP</Company>
+    <Description>Wrapper for SMTP email sending.</Description>
   </PropertyGroup>
 
   <ItemGroup>
